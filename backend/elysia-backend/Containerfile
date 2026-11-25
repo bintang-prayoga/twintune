@@ -1,0 +1,8 @@
+# backend/elysia-backend/Containerfile
+FROM oven/bun:1
+WORKDIR /app
+COPY backend/elysia-backend/package.json ./
+RUN bun install --production
+COPY backend/elysia-backend/src ./src
+EXPOSE 3000
+CMD ["bun", "run", "src/index.ts"]

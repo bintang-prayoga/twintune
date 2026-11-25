@@ -1,0 +1,9 @@
+FROM python:3.14-slim
+RUN pip install --no-cache-dir uv
+WORKDIR /app/backend/fastapi-backend
+COPY backend/fastapi-backend/pyproject.toml backend/fastapi-backend/uv.lock ./
+RUN uv sync --frozen --no-dev --no-install-project
+COPY backend/fastapi-backend/main.py ./main.py
+COPY datasets/ /app/datasets/
+EXPOSE 8000
+CMD ["/app/backend/fastapi-backend/.venv/bin/python", "-m", "uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]

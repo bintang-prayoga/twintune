@@ -7,7 +7,17 @@ from fastapi.middleware.cors import CORSMiddleware
 from sklearn.metrics.pairwise import cosine_similarity
 from sklearn.feature_extraction.text import TfidfVectorizer
 
+from fastapi.middleware.cors import CORSMiddleware
+
 app = FastAPI(title="Matrix Similarity Engine")
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:8080"],
+    allow_methods=["GET"],
+    allow_headers=["*"],
+)
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["http://localhost:5173"],
@@ -85,5 +95,5 @@ def get_similar_artists(mbid: str, limit: int = Query(default=10, ge=1, le=100))
             "country": None if pd.isna(df.iloc[res_idx]['country']) else df.iloc[res_idx]['country'],
             "similarity_score": round(float(scores[res_idx]), 4)
         })
-        
+
     return results

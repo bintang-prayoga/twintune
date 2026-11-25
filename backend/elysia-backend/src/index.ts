@@ -11,7 +11,7 @@ const LASTFM_API_KEY = Bun.env.LASTFM_API_KEY ?? "";
 
 const app = new Elysia()
   .onRequest(({ set }) => {
-    set.headers["Access-Control-Allow-Origin"] = "http://localhost:5173";
+    set.headers["Access-Control-Allow-Origin"] = "http://localhost:8080";
     set.headers["Access-Control-Allow-Methods"] = "GET, OPTIONS";
     set.headers["Access-Control-Allow-Headers"] = "Content-Type";
   })
